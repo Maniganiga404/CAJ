@@ -1,0 +1,91 @@
+/*maintains details about the car such as name, model, year of purchase, color, and price.
+Maintain a database for each of the car’s objects. For example: find the initial 5 car
+objects details
+1. “Brezza”, “VX”, “02/10/2017”, “White”, INR 6,50,500.00
+2. “Venue”, “SX”, “20/9/2018”, “White”, INR 7,50,000.00
+3. “Ciaz”, “VX”, “15/12/2015”, “White”, INR 6,00,000.00
+4. “Ecosport”, “LX”, “21/6/2018”, “Blue”, INR 5,00,500.00
+5. “Nexon”, “SX”, “15/10/2019”, “Green”, INR 8,50,500.00
+Application automatically removes the car details from the database once the booking
+is done.
+Define a class “Car”, include all data members and methods. Include getter, setter
+functions for all the data members. In order to provide the car details, override the
+function toString(). Write a testing class (main class) to validate each function. */
+
+package lab3_5;
+
+public class Car {
+
+    private String name;
+    private String model;
+    private String yearOfPurchase;
+    private String color;
+    private double price;
+
+    // Constructor
+    public Car(String name, String model, String yearOfPurchase,
+               String color, double price) {
+
+        this.name = name;
+        this.model = model;
+        this.yearOfPurchase = yearOfPurchase;
+        this.color = color;
+        this.price = price;
+    }
+
+    // Getters
+
+    public String getName() {
+        return name;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public String getYearOfPurchase() {
+        return yearOfPurchase;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    // Setters
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public void setYearOfPurchase(String yearOfPurchase) {
+        this.yearOfPurchase = yearOfPurchase;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    // toString()
+
+    @Override
+    public String toString() {
+
+        return "Name: " + name +
+                " | Model: " + model +
+                " | Year of Purchase: " + yearOfPurchase +
+                " | Color: " + color +
+                " | Price: INR " + price;
+    }
+}

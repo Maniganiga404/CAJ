@@ -1,0 +1,54 @@
+/*A book shop maintains the inventory of books that are being sold at the shop. The list
+includes details such as author, title, price, publisher and stock position. Whenever a
+customer wants a book, the salesperson inputs the title and author, and the system
+searches the list and displays whether it is available or not. If it is not, an appropriate
+message is displayed. If it is, then the system displays the book details and requests for
+the number of copies required. If the requested copies are available, the total cost of the
+requested copies is displayed; otherwise, the message "required copies not in stock" is
+displayed. Design a system using a class called books with suitable member functions
+and constructors */
+
+package lab3_4;
+
+public class book {
+    private String author;
+    private String title;
+    private double price;
+    private String publisher;
+    private int stock;
+
+    book(String author, String title, double price, String publisher, int stock) {
+        this.author = author;
+        this.title = title;
+        this.price = price;
+        this.publisher = publisher;
+        this.stock = stock;
+    }
+
+    public boolean searchBook(String searchTitle, String searchAuthor) {
+        if (this.title.equalsIgnoreCase(searchTitle)
+                && this.author.equalsIgnoreCase(searchAuthor)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean checkStock(int copies) {
+        return stock >= copies;
+    }
+
+    public double calculateCost(int copies) {
+        return price * copies;
+    }
+
+    @Override
+    public String toString() {
+        return "Title: " + title +
+                " | Author: " + author +
+                " | Price: " + price +
+                " | Publisher: " + publisher +
+                " | Stock: " + stock;
+    }
+}
+
