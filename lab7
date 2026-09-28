@@ -1,0 +1,143 @@
+db.properties
+
+#Datasabase Configuration
+db.url = jdbc:mysql://localhost:3306/companydb
+db.username=mani
+db.password=pass
+db.driver=com.mysql.jdbc.Driver
+
+
+#DBBase
+
+package lab7;
+
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.util.Properties;
+
+public class DBase {
+
+    private static Connection connection = null;
+
+    static{
+        try {
+
+            Properties props = new Properties();
+            InputStream input = new FileInputStream("D:\\\\Aug\\\\db.properties");
+            props.load(input);
+
+            String driver = props.getProperty("db.driver");
+            String url = props.getProperty("db.url");
+            String username = props.getProperty("db.username");
+            String password = props.getProperty("db.password");
+
+            Class.forName(driver);
+            connection = DriverManager.getConnection(url, username, password);
+            System.out.println("Database connected successfully!");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+
+        }
+    }
+    public static Connection getConnection(){
+        return connection;
+    }
+}
+
+
+
+##DBClass
+package lab7;
+
+public class DBClass {
+
+        DBClass db = new DBClass();
+        db.loadDriver("com.mysql.jdbc.Driver");
+        db.createConnection("jdbc:mysql://localhost:3306/tetsdb");
+        db.getStatement();
+        db.retrieveRecord("select * from login");
+
+        try {
+            while (db.rs.next()) {
+                System.out.println("name: " + db.rs);
+            }
+        }
+    }
+
+
+
+#TestDB.java
+
+package lab7;
+
+import java.sql.*;
+
+public class TestDB {
+
+    private static Connection con;
+    private static Statement stm;
+    private static ResultSet rs;
+
+    public static void loadDriver() {
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            System.out.println(e);
+        }
+        System.out.println("loaded driver successfully");
+
+
+    }
+
+    public static void createConnection() throws RuntimeException {
+        try{
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/testdb","mani","pass");
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+
+    public static  void generateStatement(){
+        try{
+            stm = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public static void display(){
+        try{
+            rs = stm.executeQuery("select * from login");
+            while (rs.next()){
+                System.out.print("name:" +rs.getString(1)+"\t");
+                System.out.print("password:"+rs.getString(2));
+                System.out.println();
+            }
+        }catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public static void closeObjects(){
+        try{
+            rs.close();
+            stm.close();
+            con.close();
+        }catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public static void main(String[] args){
+        loadDriver();
+        createConnection();
+        generateStatement();
+        display();
+        closeObjects();
+    }
+}
